@@ -17,32 +17,15 @@ public class Main {
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(inputFilePath));
-            Calculator calculator = new Calculator();
-
             try (FileWriter writer = new FileWriter(outputFilePath)) {
                 for (String line : lines) {
                     String[] tokens = line.split(" ");
                     int a = Integer.parseInt(tokens[0]);
                     int b = Integer.parseInt(tokens[1]);
-                    String operation = tokens[2];
+                    String operatorSymbol = tokens[2];
 
-                    String result = null;
-                    switch (operation) {
-                        case "+":
-                            result = String.valueOf(calculator.add(a, b));
-                            break;
-                        case "-":
-                            result = String.valueOf(calculator.substract(a, b));
-                            break;
-                        case "*":
-                            result = String.valueOf(calculator.multiply(a, b));
-                            break;
-                        case "/":
-                            result = String.valueOf(calculator.divide(a, b));
-                            break;
-                        default:
-                            System.out.println("Invalid operator");
-                    }
+                    Operator operator = OperatorFactory.getOperator(operatorSymbol);
+                    String result = operator.execute(a, b);
 
                     writer.write(String.valueOf(result));
                     writer.write(System.lineSeparator());
