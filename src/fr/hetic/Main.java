@@ -17,6 +17,7 @@ public class Main {
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(inputFilePath));
+            OperatorFactory operatorFactory = new OperatorFactory();
             try (FileWriter writer = new FileWriter(outputFilePath)) {
                 for (String line : lines) {
                     String[] tokens = line.split(" ");
@@ -24,7 +25,7 @@ public class Main {
                     int b = Integer.parseInt(tokens[1]);
                     String operatorSymbol = tokens[2];
 
-                    Operator operator = OperatorFactory.getOperator(operatorSymbol);
+                    Operator operator = operatorFactory.getOperator(operatorSymbol);
                     String result = operator.execute(a, b);
 
                     writer.write(String.valueOf(result));
