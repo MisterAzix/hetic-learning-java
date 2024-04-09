@@ -15,23 +15,28 @@ java -jar bin/Calculator.jar
 ```
 
 ### Examples
-```bash
-java -jar bin/Calculator.jar 5 3 +
+1. Create a file `input.op` with the following content:
 ```
--> 8
-```bash
-java -jar bin/Calculator.jar 5 3 -
+1 2 +
+6 1 +
+4 0 +
+2 1 -
+4 2 *
+12 5 /
 ```
--> 2
+2. Run the JAR file with the `input.op` file
 ```bash
-java -jar bin/Calculator.jar 5 3 "*"
+java -jar bin/Calculator.jar input.op output.res
 ```
--> 15
-```bash
-java -jar bin/Calculator.jar 5 3 /
+3. Check the `output.res` file
 ```
--> 1.6666666666666667
-
+3
+7
+4
+1
+8
+2.4
+```
 
 ## 👤️ Authors 👤
 - Maxence BREUILLES ([@MisterAzix](https://github.com/MisterAzix))<br />
