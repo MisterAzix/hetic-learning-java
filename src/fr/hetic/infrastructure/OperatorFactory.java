@@ -19,7 +19,7 @@ public class OperatorFactory {
     public Operator getOperator(String operator) {
         Operator op = operators.get(operator);
         if (op == null) {
-            throw new IllegalArgumentException("Invalid operator");
+            throw new OperatorException();
         }
         return op;
     }

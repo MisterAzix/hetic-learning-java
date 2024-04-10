@@ -18,8 +18,12 @@ public class Calculator {
         for (String line : lines) {
             try {
                 results.add(processLine(line));
-            } catch (IllegalArgumentException e) {
-                results.add("Invalid input");
+            } catch (OperationFormatException e) {
+                results.add("Error: Operation must be in the format: <operand1> <operand2> <operator>");
+            } catch (NumberFormatException e) {
+                results.add("Error: Operands must be integers");
+            } catch (OperatorException e) {
+                results.add("Error: Operator must be one of: + - * /");
             }
         }
 
@@ -40,7 +44,7 @@ public class Calculator {
 
     private void validateInput(String[] operandsAndOperator) {
         if (operandsAndOperator.length != 3) {
-            throw new IllegalArgumentException("Invalid input");
+            throw new OperationFormatException();
         }
     }
 }
