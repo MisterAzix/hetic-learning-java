@@ -1,9 +1,9 @@
 package fr.hetic;
 
-import fr.hetic.domain.Operator;
+import fr.hetic.domain.Calculator;
 import fr.hetic.infrastructure.OperatorFactory;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -18,33 +18,13 @@ public class Main {
         String inputFilePath = args[0];
         String outputFilePath = args[1];
 
-        try (FileWriter writer = new FileWriter(outputFilePath);) {
+        OperatorFactory operatorFactory = new OperatorFactory();
+        Calculator calculator = new Calculator(operatorFactory);
+
+        try {
             List<String> lines = Files.readAllLines(Paths.get(inputFilePath));
-            OperatorFactory operatorFactory = new OperatorFactory();
-
-            for (String line : lines) {
-                String[] tokens = line.split(" ");
-                if (tokens.length != 3) {
-                    writer.write("Invalid input");
-                    writer.write(System.lineSeparator());
-                    continue;
-                }
-
-                try {
-                    int a = Integer.parseInt(tokens[0]);
-                    int b = Integer.parseInt(tokens[1]);
-                    String operatorSymbol = tokens[2];
-
-                    Operator operator = operatorFactory.getOperator(operatorSymbol);
-                    String result = operator.execute(a, b);
-
-                    writer.write(String.valueOf(result));
-                    writer.write(System.lineSeparator());
-                } catch (IllegalArgumentException e) {
-                    writer.write("Invalid input");
-                    writer.write(System.lineSeparator());
-                }
-            }
+            List<String> results = calculator.processLines(lines);
+            Files.write(Paths.get(outputFilePath), results);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
