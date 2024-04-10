@@ -15,12 +15,19 @@ public class Main {
         String inputFilePath = args[0];
         String outputFilePath = args[1];
 
-        try {
+        try (FileWriter writer = new FileWriter(outputFilePath);) {
             List<String> lines = Files.readAllLines(Paths.get(inputFilePath));
             OperatorFactory operatorFactory = new OperatorFactory();
-            try (FileWriter writer = new FileWriter(outputFilePath)) {
-                for (String line : lines) {
-                    String[] tokens = line.split(" ");
+
+            for (String line : lines) {
+                String[] tokens = line.split(" ");
+                if (tokens.length != 3) {
+                    writer.write("Invalid input");
+                    writer.write(System.lineSeparator());
+                    continue;
+                }
+
+                try {
                     int a = Integer.parseInt(tokens[0]);
                     int b = Integer.parseInt(tokens[1]);
                     String operatorSymbol = tokens[2];
@@ -29,6 +36,9 @@ public class Main {
                     String result = operator.execute(a, b);
 
                     writer.write(String.valueOf(result));
+                    writer.write(System.lineSeparator());
+                } catch (IllegalArgumentException e) {
+                    writer.write("Invalid input");
                     writer.write(System.lineSeparator());
                 }
             }
