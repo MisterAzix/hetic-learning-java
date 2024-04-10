@@ -1,5 +1,8 @@
 package fr.hetic;
 
+import fr.hetic.domain.Operator;
+import fr.hetic.infrastructure.OperatorFactory;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
