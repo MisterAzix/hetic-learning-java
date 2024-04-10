@@ -1,10 +1,6 @@
 package fr.hetic.infrastructure;
 
 import fr.hetic.domain.*;
-import fr.hetic.domain.AddOperator;
-import fr.hetic.domain.DivideOperator;
-import fr.hetic.domain.MultiplyOperator;
-import fr.hetic.domain.SubstractOperator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,10 +10,10 @@ public class OperatorFactory {
 
     public OperatorFactory() {
         operators = new HashMap<>();
-        operators.put("+", new AddOperator());
-        operators.put("-", new SubstractOperator());
-        operators.put("*", new MultiplyOperator());
-        operators.put("/", new DivideOperator());
+        operators.put(OperatorType.ADD.getSymbol(), new AddOperator());
+        operators.put(OperatorType.SUBTRACT.getSymbol(), new SubstractOperator());
+        operators.put(OperatorType.MULTIPLY.getSymbol(), new MultiplyOperator());
+        operators.put(OperatorType.DIVIDE.getSymbol(), new DivideOperator());
     }
 
     public Operator getOperator(String operator) {
