@@ -24,6 +24,8 @@ public class Calculator {
                 results.add("Error: Operands must be integers");
             } catch (OperatorException e) {
                 results.add("Error: Operator must be one of: + - * /");
+            } catch (ArithmeticException e) {
+                results.add("Error: Division by zero is not allowed");
             }
         }
 
