@@ -1,32 +1,22 @@
 package fr.hetic;
 
 import fr.hetic.domain.Calculator;
+import fr.hetic.domain.FileProcessor;
 import fr.hetic.infrastructure.OperatorFactory;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        if (args.length != 2) {
-            System.out.println("You must provide the input and output file paths as arguments (<input-file> <output-file>)");
+        if (args.length != 1) {
+            System.out.println("You must provide the directory path as an argument (<directory-path>)");
             System.exit(1);
         }
 
-        String inputFilePath = args[0];
-        String outputFilePath = args[1];
+        String directoryPath = args[0];
 
         OperatorFactory operatorFactory = new OperatorFactory();
         Calculator calculator = new Calculator(operatorFactory);
+        FileProcessor fileProcessor = new FileProcessor(calculator);
 
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(inputFilePath));
-            List<String> results = calculator.processLines(lines);
-            Files.write(Paths.get(outputFilePath), results);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        fileProcessor.processDirectory(directoryPath);
     }
 }

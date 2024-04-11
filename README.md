@@ -22,33 +22,15 @@ java -jar bin/Calculator.jar
 
 ### Examples
 
-1. Create a file `input.op` with the following content:
+1. Download the `inputs` folder
 
-```
-1 2 +
-6 1 +
-4 0 +
-2 1 -
-4 2 *
-12 5 /
-```
-
-2. Run the JAR file with the `input.op` file
+2. Run the JAR file with the `inputs` folder
 
 ```bash
-java -jar bin/Calculator.jar input.op output.res
+java -jar bin/Calculator.jar inputs
 ```
 
-3. Check the `output.res` file
-
-```
-3
-7
-4
-1
-8
-2.4
-```
+3. Check the `.res` files next to `*.op` files
 
 ## 👤️ Authors 👤
 
