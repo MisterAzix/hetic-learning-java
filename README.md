@@ -2,22 +2,16 @@
 
 ## Compile and run the project
 
-1. Compile the project
+1. Compile the project with Maven
 
 ```bash
-javac -d bin src/fr/hetic/**/*.java
+mvn package
 ```
 
-2. Create the JAR file
+2. Run the JAR file
 
 ```bash
-jar cfe bin/Calculator.jar fr.hetic.Main -C bin fr
-```
-
-3. Run the JAR file
-
-```bash
-java -jar bin/Calculator.jar
+java -jar target/hetic-learning-java-1.0-SNAPSHOT.jar
 ```
 
 ### Examples
@@ -27,7 +21,7 @@ java -jar bin/Calculator.jar
 2. Run the JAR file with the `inputs` folder
 
 ```bash
-java -jar bin/Calculator.jar inputs
+java -jar target/hetic-learning-java-1.0-SNAPSHOT.jar inputs
 ```
 
 3. Check the `.res` files next to `*.op` files
