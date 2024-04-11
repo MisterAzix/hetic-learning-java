@@ -15,19 +15,40 @@ public class SubstractOperatorTest {
 
     @Test
     public void shouldReturnDifferenceWhenTwoPositiveNumbersAreProvided() {
-        String result = substractOperator.execute(5, 3);
+        // Given
+        int operand1 = 5;
+        int operand2 = 3;
+
+        // When
+        String result = substractOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("2", result);
     }
 
     @Test
     public void shouldReturnDifferenceWhenPositiveAndNegativeNumbersAreProvided() {
-        String result = substractOperator.execute(5, -3);
+        // Given
+        int operand1 = 5;
+        int operand2 = -3;
+
+        // When
+        String result = substractOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("8", result);
     }
 
     @Test
     public void shouldReturnDifferenceWhenTwoNegativeNumbersAreProvided() {
-        String result = substractOperator.execute(-5, -3);
+        // Given
+        int operand1 = -5;
+        int operand2 = -3;
+
+        // When
+        String result = substractOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("-2", result);
     }
 }

@@ -15,25 +15,53 @@ public class MultiplyOperatorTest {
 
     @Test
     public void shouldReturnProductWhenTwoPositiveNumbersAreProvided() {
-        String result = multiplyOperator.execute(5, 3);
+        // Given
+        int operand1 = 5;
+        int operand2 = 3;
+
+        // When
+        String result = multiplyOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("15", result);
     }
 
     @Test
     public void shouldReturnProductWhenPositiveAndNegativeNumbersAreProvided() {
-        String result = multiplyOperator.execute(5, -3);
+        // Given
+        int operand1 = 5;
+        int operand2 = -3;
+
+        // When
+        String result = multiplyOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("-15", result);
     }
 
     @Test
     public void shouldReturnProductWhenTwoNegativeNumbersAreProvided() {
-        String result = multiplyOperator.execute(-5, -3);
+        // Given
+        int operand1 = -5;
+        int operand2 = -3;
+
+        // When
+        String result = multiplyOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("15", result);
     }
 
     @Test
     public void shouldReturnZeroWhenZeroAndAnyNumberAreProvided() {
-        String result = multiplyOperator.execute(0, 5);
+        // Given
+        int operand1 = 0;
+        int operand2 = 5;
+
+        // When
+        String result = multiplyOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("0", result);
     }
 }

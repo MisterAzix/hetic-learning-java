@@ -15,25 +15,53 @@ public class DivideOperatorTest {
 
     @Test
     public void shouldReturnQuotientWhenTwoPositiveNumbersAreProvided() {
-        String result = divideOperator.execute(6, 3);
+        // Given
+        int operand1 = 6;
+        int operand2 = 3;
+
+        // When
+        String result = divideOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("2.0", result);
     }
 
     @Test
     public void shouldReturnQuotientWhenPositiveAndNegativeNumbersAreProvided() {
-        String result = divideOperator.execute(6, -3);
+        // Given
+        int operand1 = 6;
+        int operand2 = -3;
+
+        // When
+        String result = divideOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("-2.0", result);
     }
 
     @Test
     public void shouldReturnQuotientWhenTwoNegativeNumbersAreProvided() {
-        String result = divideOperator.execute(-6, -3);
+        // Given
+        int operand1 = -6;
+        int operand2 = -3;
+
+        // When
+        String result = divideOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("2.0", result);
     }
 
     @Test
     public void shouldReturnZeroWhenZeroAndAnyNumberAreProvided() {
-        String result = divideOperator.execute(0, 5);
+        // Given
+        int operand1 = 0;
+        int operand2 = 5;
+
+        // When
+        String result = divideOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("0.0", result);
     }
 

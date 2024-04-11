@@ -15,19 +15,40 @@ public class AddOperatorTest {
 
     @Test
     public void shouldReturnSumWhenTwoPositiveNumbersAreProvided() {
-        String result = addOperator.execute(5, 3);
+        // Given
+        int operand1 = 5;
+        int operand2 = 3;
+
+        // When
+        String result = addOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("8", result);
     }
 
     @Test
     public void shouldReturnSumWhenPositiveAndNegativeNumbersAreProvided() {
-        String result = addOperator.execute(5, -3);
+        // Given
+        int operand1 = 5;
+        int operand2 = -3;
+
+        // When
+        String result = addOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("2", result);
     }
 
     @Test
     public void shouldReturnSumWhenTwoNegativeNumbersAreProvided() {
-        String result = addOperator.execute(-5, -3);
+        // Given
+        int operand1 = -5;
+        int operand2 = -3;
+
+        // When
+        String result = addOperator.execute(operand1, operand2);
+
+        // Then
         assertEquals("-8", result);
     }
 }
