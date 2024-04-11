@@ -5,6 +5,8 @@ import fr.hetic.infrastructure.OperatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.SPACE;
+
 public class Calculator {
     private final OperatorFactory operatorFactory;
 
@@ -33,7 +35,7 @@ public class Calculator {
     }
 
     private String processLine(String line) {
-        String[] tokens = line.split(" ");
+        String[] tokens = line.split(SPACE);
         validateInput(tokens);
 
         int operand1 = Integer.parseInt(tokens[0]);
