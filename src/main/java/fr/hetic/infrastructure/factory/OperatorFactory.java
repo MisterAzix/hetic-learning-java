@@ -1,6 +1,8 @@
-package fr.hetic.infrastructure;
+package fr.hetic.infrastructure.factory;
 
 import fr.hetic.domain.*;
+import fr.hetic.domain.exception.OperatorException;
+import fr.hetic.domain.type.OperatorType;
 
 import java.util.HashMap;
 import java.util.Map;

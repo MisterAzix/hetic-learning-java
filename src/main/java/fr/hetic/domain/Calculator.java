@@ -1,54 +1,64 @@
 package fr.hetic.domain;
 
-import fr.hetic.infrastructure.OperatorFactory;
+import fr.hetic.domain.entity.InputFileEntity;
+import fr.hetic.domain.entity.OutputFileEntity;
+import fr.hetic.domain.repository.FileRepository;
+import fr.hetic.domain.valueObject.InputLineValueObject;
+import fr.hetic.domain.valueObject.OutputLineValueObject;
+import fr.hetic.infrastructure.factory.OperatorFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import static org.apache.commons.lang3.StringUtils.SPACE;
 
 public class Calculator {
     private final OperatorFactory operatorFactory;
+    private final FileRepository fileRepository;
 
-    public Calculator(OperatorFactory operatorFactory) {
+    public Calculator(OperatorFactory operatorFactory, FileRepository fileRepository) {
         this.operatorFactory = operatorFactory;
+        this.fileRepository = fileRepository;
     }
 
-    public List<String> processLines(List<String> lines) {
-        List<String> results = new ArrayList<>();
+    public void execute() {
+        List<InputFileEntity> files = fileRepository.getFiles();
+        processFiles(files);
+    }
 
-        for (String line : lines) {
+
+    public void processFiles(List<InputFileEntity> files) {
+        for (InputFileEntity file : files) {
+            System.out.println("Processing file: " + file.name());
+            List<InputLineValueObject> lines = file.lines();
+            List<OutputLineValueObject> results = processLines(lines);
+            fileRepository.saveFile(new OutputFileEntity(file.name(), file.type(), results));
+        }
+    }
+
+    public List<OutputLineValueObject> processLines(List<InputLineValueObject> lines) {
+        List<OutputLineValueObject> results = new ArrayList<>(
+                Collections.nCopies(lines.getLast().position() + 1, new OutputLineValueObject(""))
+        );
+
+        for (InputLineValueObject line : lines) {
             try {
-                results.add(processLine(line));
-            } catch (OperationFormatException e) {
-                results.add("Error: Operation must be in the format: <operand1> <operand2> <operator>");
-            } catch (NumberFormatException e) {
-                results.add("Error: Operands must be integers");
-            } catch (OperatorException e) {
-                results.add("Error: Operator must be one of: + - * /");
+                results.set(line.position(), processLine(line));
             } catch (ArithmeticException e) {
-                results.add("Error: Division by zero is not allowed");
+                results.set(line.position(), new OutputLineValueObject(""));
             }
         }
 
         return results;
     }
 
-    private String processLine(String line) {
-        String[] tokens = line.split(SPACE);
-        validateInput(tokens);
-
-        int operand1 = Integer.parseInt(tokens[0]);
-        int operand2 = Integer.parseInt(tokens[1]);
-        String operatorSymbol = tokens[2];
+    private OutputLineValueObject processLine(InputLineValueObject line) {
+        int operand1 = line.operand1();
+        int operand2 = line.operand2();
+        String operatorSymbol = line.operator().getSymbol();
 
         Operator operator = operatorFactory.getOperator(operatorSymbol);
-        return operator.execute(operand1, operand2);
-    }
-
-    private void validateInput(String[] operandsAndOperator) {
-        if (operandsAndOperator.length != 3) {
-            throw new OperationFormatException();
-        }
+        String result = operator.execute(operand1, operand2);
+        return new OutputLineValueObject(result);
     }
 }

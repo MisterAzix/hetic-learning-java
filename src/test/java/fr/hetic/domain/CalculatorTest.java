@@ -1,12 +1,18 @@
 package fr.hetic.domain;
 
-import fr.hetic.infrastructure.OperatorFactory;
+import fr.hetic.domain.repository.FileRepository;
+import fr.hetic.domain.type.OperatorType;
+import fr.hetic.domain.valueObject.InputLineValueObject;
+import fr.hetic.domain.valueObject.OutputLineValueObject;
+import fr.hetic.infrastructure.adapter.LocalFileRepositoryAdapter;
+import fr.hetic.infrastructure.factory.OperatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class CalculatorTest {
     private Calculator calculator;
@@ -14,66 +20,42 @@ public class CalculatorTest {
     @BeforeEach
     public void setup() {
         OperatorFactory operatorFactory = new OperatorFactory();
-        calculator = new Calculator(operatorFactory);
+        FileRepository fileRepositoryMock = mock(LocalFileRepositoryAdapter.class);
+
+        calculator = new Calculator(operatorFactory, fileRepositoryMock);
     }
 
     @Test
     public void shouldReturnCorrectResultsWhenValidOperationsAreProvided() {
         // Given
-        List<String> lines = List.of("5 3 +", "5 3 -", "5 3 *", "6 3 /");
+        List<InputLineValueObject> lines = List.of(
+                new InputLineValueObject(5, 3, OperatorType.ADD, 0),
+                new InputLineValueObject(5, 3, OperatorType.SUBTRACT, 1),
+                new InputLineValueObject(5, 3, OperatorType.MULTIPLY, 2),
+                new InputLineValueObject(6, 3, OperatorType.DIVIDE, 3)
+        );
 
         // When
-        List<String> results = calculator.processLines(lines);
+        List<OutputLineValueObject> results = calculator.processLines(lines);
 
         // Then
-        assertEquals(List.of("8", "2", "15", "2.0"), results);
-    }
-
-    @Test
-    public void shouldReturnErrorMessageWhenInvalidFormatIsProvided() {
-        // Given
-        List<String> lines = List.of("5 3");
-
-        // When
-        List<String> results = calculator.processLines(lines);
-
-        // Then
-        assertEquals(List.of("Error: Operation must be in the format: <operand1> <operand2> <operator>"), results);
-    }
-
-    @Test
-    public void shouldReturnErrorMessageWhenNonIntegerOperandsAreProvided() {
-        // Given
-        List<String> lines = List.of("5.5 3 +");
-
-        // When
-        List<String> results = calculator.processLines(lines);
-
-        // Then
-        assertEquals(List.of("Error: Operands must be integers"), results);
-    }
-
-    @Test
-    public void shouldReturnErrorMessageWhenInvalidOperatorIsProvided() {
-        // Given
-        List<String> lines = List.of("5 3 x");
-
-        // When
-        List<String> results = calculator.processLines(lines);
-
-        // Then
-        assertEquals(List.of("Error: Operator must be one of: + - * /"), results);
+        assertEquals(List.of(
+                new OutputLineValueObject("8"),
+                new OutputLineValueObject("2"),
+                new OutputLineValueObject("15"),
+                new OutputLineValueObject("2.0")
+        ), results);
     }
 
     @Test
     public void shouldReturnErrorMessageWhenDivisionByZeroIsAttempted() {
         // Given
-        List<String> lines = List.of("5 0 /");
+        List<InputLineValueObject> lines = List.of(new InputLineValueObject(5, 0, OperatorType.DIVIDE, 0));
 
         // When
-        List<String> results = calculator.processLines(lines);
+        List<OutputLineValueObject> results = calculator.processLines(lines);
 
         // Then
-        assertEquals(List.of("Error: Division by zero is not allowed"), results);
+        assertEquals(List.of(new OutputLineValueObject("Error: Division by zero is not allowed")), results);
     }
 }

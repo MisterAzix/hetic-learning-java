@@ -1,6 +1,8 @@
 package fr.hetic.infrastructure;
 
 import fr.hetic.domain.*;
+import fr.hetic.domain.exception.OperatorException;
+import fr.hetic.infrastructure.factory.OperatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
