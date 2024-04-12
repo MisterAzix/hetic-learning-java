@@ -29,7 +29,6 @@ public class Calculator {
 
     public void processFiles(List<InputFileEntity> files) {
         for (InputFileEntity file : files) {
-            System.out.println("Processing file: " + file.name());
             List<InputLineValueObject> lines = file.lines();
             List<OutputLineValueObject> results = processLines(lines);
             fileRepository.saveFile(new OutputFileEntity(file.name(), file.type(), results));

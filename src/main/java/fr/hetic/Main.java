@@ -1,8 +1,10 @@
 package fr.hetic;
 
 import fr.hetic.domain.Calculator;
+import fr.hetic.domain.repository.FileRepository;
 import fr.hetic.infrastructure.adapter.LocalFileRepositoryAdapter;
 import fr.hetic.infrastructure.adapter.PostgresqlFileRepositoryAdapter;
+import fr.hetic.infrastructure.factory.FileRepositoryFactory;
 import fr.hetic.infrastructure.factory.OperatorFactory;
 import fr.hetic.infrastructure.middleware.ErrorMiddleware;
 
@@ -29,10 +31,9 @@ public class Main {
             String directoryPath = args[0];
 
             OperatorFactory operatorFactory = new OperatorFactory();
-            //LocalFileRepositoryAdapter localFileRepositoryAdapter = new LocalFileRepositoryAdapter(directoryPath);
-            PostgresqlFileRepositoryAdapter postgresqlFileRepositoryAdapter = new PostgresqlFileRepositoryAdapter(directoryPath);
+            FileRepository fileRepository = new FileRepositoryFactory().createRepository(directoryPath);
 
-            Calculator calculator = new Calculator(operatorFactory, postgresqlFileRepositoryAdapter);
+            Calculator calculator = new Calculator(operatorFactory, fileRepository);
             calculator.execute();
         } catch (Exception e) {
             new ErrorMiddleware().handle(e);
