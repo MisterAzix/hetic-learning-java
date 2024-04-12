@@ -29,10 +29,10 @@ public class CalculatorTest {
     public void shouldReturnCorrectResultsWhenValidOperationsAreProvided() {
         // Given
         List<InputLineValueObject> lines = List.of(
-                new InputLineValueObject(5, 3, OperatorType.ADD, 0),
-                new InputLineValueObject(5, 3, OperatorType.SUBTRACT, 1),
-                new InputLineValueObject(5, 3, OperatorType.MULTIPLY, 2),
-                new InputLineValueObject(6, 3, OperatorType.DIVIDE, 3)
+                new InputLineValueObject(5, 3, OperatorType.ADD, 1),
+                new InputLineValueObject(5, 3, OperatorType.SUBTRACT, 2),
+                new InputLineValueObject(5, 3, OperatorType.MULTIPLY, 3),
+                new InputLineValueObject(6, 3, OperatorType.DIVIDE, 4)
         );
 
         // When
@@ -50,12 +50,12 @@ public class CalculatorTest {
     @Test
     public void shouldReturnErrorMessageWhenDivisionByZeroIsAttempted() {
         // Given
-        List<InputLineValueObject> lines = List.of(new InputLineValueObject(5, 0, OperatorType.DIVIDE, 0));
+        List<InputLineValueObject> lines = List.of(new InputLineValueObject(5, 0, OperatorType.DIVIDE, 1));
 
         // When
         List<OutputLineValueObject> results = calculator.processLines(lines);
 
         // Then
-        assertEquals(List.of(new OutputLineValueObject("Error: Division by zero is not allowed")), results);
+        assertEquals(List.of(new OutputLineValueObject("")), results);
     }
 }

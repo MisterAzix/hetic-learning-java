@@ -18,7 +18,7 @@ public class LocalFileMapper {
 
     public InputFileEntity mapToFileEntity(String fileName, String extension, List<String> lines) {
         List<InputLineValueObject> lineValueObjects = IntStream.range(0, lines.size())
-                .mapToObj(i -> createLineValueObject(lines.get(i), i))
+                .mapToObj(i -> createLineValueObject(lines.get(i), i + 1))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         return new InputFileEntity(fileName, extension, lineValueObjects);

@@ -38,14 +38,14 @@ public class Calculator {
 
     public List<OutputLineValueObject> processLines(List<InputLineValueObject> lines) {
         List<OutputLineValueObject> results = new ArrayList<>(
-                Collections.nCopies(lines.getLast().position() + 1, new OutputLineValueObject(""))
+                Collections.nCopies(lines.getLast().position(), new OutputLineValueObject(""))
         );
 
         for (InputLineValueObject line : lines) {
             try {
-                results.set(line.position(), processLine(line));
+                results.set(line.position() - 1, processLine(line));
             } catch (ArithmeticException e) {
-                results.set(line.position(), new OutputLineValueObject(""));
+                results.set(line.position() - 1, new OutputLineValueObject(""));
             }
         }
 

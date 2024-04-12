@@ -11,7 +11,7 @@ mvn package
 2. Run the JAR file
 
 ```bash
-java -jar target/hetic-learning-java-1.0-SNAPSHOT.jar
+java -jar target/hetic-learning-java-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ### Examples
@@ -21,7 +21,7 @@ java -jar target/hetic-learning-java-1.0-SNAPSHOT.jar
 2. Run the JAR file with the `inputs` folder
 
 ```bash
-java -jar target/hetic-learning-java-1.0-SNAPSHOT.jar inputs
+java -jar target/hetic-learning-java-1.0-SNAPSHOT-jar-with-dependencies.jar inputs
 ```
 
 3. Check the `.res` files next to `*.op` files
